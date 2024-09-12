@@ -8,11 +8,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,8 +25,10 @@ app.use((req, res, next) => {
   next();      
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));//-----------app.use('/users', usersRouter);//http://localhost:3000/users
+app.use('/auditlogs', require('./routes/auditlogs'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
